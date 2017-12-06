@@ -28,8 +28,10 @@ class ProductsController < ApplicationController
 
   def data
     product = Product.find(params[:id])
-    render json: ProductSerializer.serialize(product)
+    render json: product.to_json(only: [:title, :description, :id],
+                              include: [ author: { only: [:name]}])
   end
+
 
   private
 
